@@ -11,7 +11,7 @@ using namespace std;
 /***
 *类名：TDFA（TEST Language DFA, TEST语言词法分析器）
 *
-*作者：喻永生
+*作者：yeates
 ***/
 class TDFA{
 public:
