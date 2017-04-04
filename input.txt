@@ -1,0 +1,12 @@
+123 23123 21312321312
+000
+0
+333 21 323
+int main () {
+	int a = 2 ;
+	double d23123 = a ;
+	return 0 ;
+}
+/*asdfasfdsafsdf*/
+/* asdf asdfa sd */
+/******asdfasdfsafsadf****asdfasdf***dafsdf**/
