@@ -11,10 +11,16 @@ using namespace std;
 /***
 *类名：TDFA（TEST Language DFA, TEST语言词法分析器）
 *
-*作者：yeates
+*作者：喻永生
 ***/
 class TDFA{
 public:
+
+    struct WRINFO{
+        int line_num;
+        string wr_str;
+        WRINFO(int l, string s):line_num(l), wr_str(s){};
+    };
 
     void read_text();
     void disp_result();
@@ -26,11 +32,12 @@ public:
     bool is_delimiter(char CheckStr);
     bool is_operator(char CheckStr);
 ///////////////////////////
-    bool identifier_DFA(string CheckStr);
+    int identifier_DFA(string CheckStr);
     bool unsigned_integer_DFA(string CheckStr);
     bool operator_DFA(string CheckStr);
     bool delimiter_DFA(string CheckStr);
     int slash_DFA(string CheckStr);        //注意这里并不是注释符DFA，因为要根据DFA来看，这是斜杠/开头的DFA
+
 
 private:
 
@@ -38,7 +45,10 @@ private:
     vector<int>m_str_attribute;  //编号为i的单词的单词属性
     vector<int>m_str_lineNum;    //编号为i的单词所在的行号
     const string m_KeyWord[7] = {"Null", "Identifier", "Reserved word", "Unsigned integer","Operator", "Delimiter", "Annotator"};
-
+    const string m_reserved_word[8] = {"if", "else", "for", "while", "do", "int", "write", "read"};
+    const int m_reserved_word_num = 8;
+    vector<WRINFO>m_wr_info;
+    bool m_is_in_annotator = false;     //当前单词是否在注释内
 };
 
 void TDFA::read_text(){
@@ -58,7 +68,11 @@ void TDFA::read_text(){
 void TDFA::lexical_analysis(){
     int StockLen = m_str.size();   //m_str的长度
     for(int i = 0; i < StockLen; i++){
+        //if(m_is_in_annotator)   continue;
         m_str_attribute[i] = use_DFA(m_str[i]);
+        if(m_str_attribute[i] == 0){
+            m_wr_info.push_back(WRINFO(m_str_lineNum[i], m_str[i]));
+        }
     }
 }
 
@@ -66,8 +80,7 @@ int TDFA::use_DFA(string CheckStr){
     string& cs = CheckStr;  //简化名称
     if(cs.size() == 0)  return 0;
     if(is_alpha(cs[0])){
-        if(identifier_DFA(cs))  return 1;
-        else return 0;
+        return identifier_DFA(cs);
     }
     else if(is_digit(cs[0])){
         if(unsigned_integer_DFA(cs))    return 3;
@@ -84,17 +97,22 @@ int TDFA::use_DFA(string CheckStr){
     else if(cs[0] == '/'){
         return slash_DFA(cs);
     }
+    else return 0;
 }
 
-bool TDFA::identifier_DFA(string CheckStr){
+int TDFA::identifier_DFA(string CheckStr){
     string& cs = CheckStr;
     int i = 1, len = cs.size();
     while(i < len){
         if(!is_alpha(cs[i]) && !is_digit(cs[i]))
-            return false;       //TODO：记录行号
+            return 0;       //TODO：记录行号
         i++;
     }
-    return true;
+    for(int i = 0; i < m_reserved_word_num; i++){
+        if(CheckStr == m_reserved_word[i])
+            return 2;
+    }
+    return 1;
 }
 
 bool TDFA::unsigned_integer_DFA(string CheckStr){
@@ -151,7 +169,10 @@ int TDFA::slash_DFA(string CheckStr){
             break;
         case 2:
             if(cs[i] == '*')    i++;
-            else if(cs[i] == '/' && i == len - 1)   i++;
+            else if(cs[i] == '/' && i == len - 1){
+                state_now = 3;  //第二个终态
+                i++;
+            }
             else if(cs[i] == '/' && i != len - 1)   return 0;   //记录报错行号
             else{
                 state_now = 1;
@@ -161,7 +182,9 @@ int TDFA::slash_DFA(string CheckStr){
         default:break;
         }
     }
-    return 6;
+    if(state_now == 3)
+        return 6;
+    else return 0;
 }
 
 bool TDFA::is_alpha(char CheckStr){
@@ -202,15 +225,19 @@ bool TDFA::is_operator(char CheckStr){
 
 void TDFA::disp_result(){
     int StockLen = m_str.size();   //m_str的长度
+    int WrInfoLen = m_wr_info.size();
+    for(int i = 0; i < WrInfoLen; i++){
+        cout << "在行号：" << m_wr_info[i].line_num << "有错误代码 " << m_wr_info[i].wr_str <<endl;
+    }
     for(int i = 0; i < StockLen; i++){
-        cout << "单词： " << m_str[i] << " , 属性： ";
+        cout << "单词：" << m_str[i] << "  属性：";
         cout << m_KeyWord[m_str_attribute[i]] << endl;
     }
 }
 
 int main(){
 
-    //freopen("input.txt", "r", stdin);
+    freopen("input.txt", "r", stdin);
 
     TDFA tdfa;                  //声明对象
     tdfa.read_text();           //读取文本
