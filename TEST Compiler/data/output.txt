@@ -1,0 +1,96 @@
+在行号：5，存在错误代码 $
+在行号：5，存在错误代码 @
+在行号：8，存在错误代码 ,
+在行号：12，存在错误代码 012345
+在行号：18，存在错误代码 !
+在行号：19，存在错误代码 /*The loop ended
+单词：{  属性：Delimiter
+单词：/*This a test program.*/  属性：Annotator
+单词：int  属性：Reserved word
+单词：abc  属性：Identifier
+单词：;  属性：Delimiter
+单词：int  属性：Reserved word
+单词：123  属性：Unsigned integer
+单词：;  属性：Delimiter
+单词：int  属性：Reserved word
+单词：A  属性：Identifier
+单词：$  属性：Null
+单词：@  属性：Null
+单词：;  属性：Delimiter
+单词：int  属性：Reserved word
+单词：i  属性：Identifier
+单词：;  属性：Delimiter
+单词：int  属性：Reserved word
+单词：n  属性：Identifier
+单词：;  属性：Delimiter
+单词：int  属性：Reserved word
+单词：b  属性：Identifier
+单词：,  属性：Null
+单词：c  属性：Identifier
+单词：;  属性：Delimiter
+单词：int  属性：Reserved word
+单词：2  属性：Unsigned integer
+单词：a  属性：Identifier
+单词：;  属性：Delimiter
+单词：int  属性：Reserved word
+单词：a2  属性：Identifier
+单词：;  属性：Delimiter
+单词：read  属性：Reserved word
+单词：n  属性：Identifier
+单词：;  属性：Delimiter
+单词：n  属性：Identifier
+单词：=  属性：Operator
+单词：012345  属性：Null
+单词：;  属性：Delimiter
+单词：for  属性：Reserved word
+单词：(  属性：Delimiter
+单词：i  属性：Identifier
+单词：=  属性：Operator
+单词：1  属性：Unsigned integer
+单词：;  属性：Delimiter
+单词：i  属性：Identifier
+单词：<=  属性：Operator
+单词：n  属性：Identifier
+单词：;  属性：Delimiter
+单词：i  属性：Identifier
+单词：=  属性：Operator
+单词：i  属性：Identifier
+单词：+  属性：Operator
+单词：1  属性：Unsigned integer
+单词：)  属性：Delimiter
+单词：{  属性：Delimiter
+单词：abc  属性：Identifier
+单词：=  属性：Operator
+单词：abc  属性：Identifier
+单词：+  属性：Operator
+单词：i  属性：Identifier
+单词：;  属性：Delimiter
+单词：}  属性：Delimiter
+单词：if  属性：Reserved word
+单词：(  属性：Delimiter
+单词：i  属性：Identifier
+单词：!=  属性：Operator
+单词：n  属性：Identifier
+单词：)  属性：Delimiter
+单词：n  属性：Identifier
+单词：=  属性：Operator
+单词：n  属性：Identifier
+单词：+  属性：Operator
+单词：i  属性：Identifier
+单词：;  属性：Delimiter
+单词：if  属性：Reserved word
+单词：(  属性：Delimiter
+单词：!  属性：Null
+单词：n  属性：Identifier
+单词：)  属性：Delimiter
+单词：b  属性：Identifier
+单词：=  属性：Operator
+单词：b  属性：Identifier
+单词：+  属性：Operator
+单词：c  属性：Identifier
+单词：;  属性：Delimiter
+单词：/*The loop ended  属性：Null
+单词：write  属性：Reserved word
+单词：abc  属性：Identifier
+单词：;  属性：Delimiter
+单词：}  属性：Delimiter
