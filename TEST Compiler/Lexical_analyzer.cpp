@@ -1,7 +1,7 @@
 /***
 *类名：TDFA（TEST Language Lexical analyzer, TEST语言词法分析器）
 *
-*作者：喻永生
+*作者：yeates
 ***/
 
 #include "Lexical_analyzer.h"
