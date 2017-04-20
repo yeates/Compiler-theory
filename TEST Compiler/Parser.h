@@ -49,6 +49,7 @@ private:
     int f_term(int no);
     int f_tmp_term(int no);
     int f_factor(int no);
+    int f_tmp_if_stat(int no)
 //----------------------------------------//
     bool is_include(int no, vector<string>first);
 public:

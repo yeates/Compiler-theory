@@ -51,19 +51,21 @@ PARSER::PARSER(){
     follow_tmp_bool_expr.push_back("!=");   //TODO：补全
 }
 //#1
-int PARSER::f_program(int no){  //TODO：
+int PARSER::f_program(int no){
     string ch = LA.m_str[no];
     if(ch == "{"){
         ch = LA.m_str[++no];
     }
-    else{}  //TODO：记录错误信息
+    else{
+        cout << "在行号：" << LA.m_str_lineNum[no] << "，存在语法错误代码 " << LA.m_str[no] <<endl;
+    }
     no = f_declaration_list(no);
     no = f_statement_list(no);
     ch = LA.m_str[no];
     if(ch == "}"){
         //结束
     }
-    else{}
+    else    cout << "在行号：" << LA.m_str_lineNum[no] << "，存在语法错误代码 " << LA.m_str[no] <<endl;
 }
 //#2
 int PARSER::f_declaration_list(int no){//TODO
@@ -82,13 +84,13 @@ int PARSER::f_declaration_stat(int no){
     if(ch == "int"){
         ch = LA.m_str[++no];
     }
-    else{}
+    else    cout << "在行号：" << LA.m_str_lineNum[no] << "，存在语法错误代码 " << LA.m_str[no] <<endl;
     if(LA.m_str_attribute[no] == 1){
         ch = LA.m_str[++no];
     }
-    else{}
+    else    cout << "在行号：" << LA.m_str_lineNum[no] << "，存在语法错误代码 " << LA.m_str[no] <<endl;
     if(ch == ";")   return ++no;
-    else{}
+    else    cout << "在行号：" << LA.m_str_lineNum[no] << "，存在语法错误代码 " << LA.m_str[no] <<endl;
 }
 //#4
 int PARSER::f_statement_list(int no){
@@ -124,23 +126,34 @@ int PARSER::f_statement(int no){
     else if(is_include(no, first_expression_stat)){
         no = f_expression_stat(no);
     }
+    else    cout << "在行号：" << LA.m_str_lineNum[no] << "，存在语法错误代码 " << LA.m_str[no] <<endl;
     return no;
 }
 //#6
 int PARSER::f_if_stat(int no){
-
+    string ch = LA.m_str[no];
+    if(ch == "if")  ch = LA.m_str[++no];
+    else    cout << "在行号：" << LA.m_str_lineNum[no] << "，存在语法错误代码 " << LA.m_str[no] <<endl;
+    if(ch == "(")  ch = LA.m_str[++no];
+    else    cout << "在行号：" << LA.m_str_lineNum[no] << "，存在语法错误代码 " << LA.m_str[no] <<endl;
+    no = f_expression(no);
+    if(ch == ")")  ch = LA.m_str[++no];
+    else    cout << "在行号：" << LA.m_str_lineNum[no] << "，存在语法错误代码 " << LA.m_str[no] <<endl;
+    no = f_statement(no);
+    no = f_tmp_if_stat(no);
+    return no;
 }
 //#7
 int PARSER::f_while_stat(int no){
     string ch = LA.m_str[no];
     if(ch == "while")   ch = LA.m_str[++no];
-    else{}
+    else    cout << "在行号：" << LA.m_str_lineNum[no] << "，存在语法错误代码 " << LA.m_str[no] <<endl;
     if(ch == "(")   ch = LA.m_str[++no];
-    else{}
+    else    cout << "在行号：" << LA.m_str_lineNum[no] << "，存在语法错误代码 " << LA.m_str[no] <<endl;
     no = f_expression(no);
     ch = LA.m_str[no];
     if(ch == ")")   ch = LA.m_str[++no];
-    else{}
+    else    cout << "在行号：" << LA.m_str_lineNum[no] << "，存在语法错误代码 " << LA.m_str[no] <<endl;
     no = f_statement(no);
     return no;
 }
@@ -148,9 +161,9 @@ int PARSER::f_while_stat(int no){
 int PARSER::f_for_stat(int no){
     string ch = LA.m_str[no];
     if(ch == "for") ch = LA.m_str[++no];
-    else{}
+    else    cout << "在行号：" << LA.m_str_lineNum[no] << "，存在语法错误代码 " << LA.m_str[no] <<endl;
     if(ch == "(")   ch = LA.m_str[++no];
-    else{}
+    else    cout << "在行号：" << LA.m_str_lineNum[no] << "，存在语法错误代码 " << LA.m_str[no] <<endl;
     no = f_expression(no);
     ch = LA.m_str[no];
     if(ch == ";")   ch = LA.m_str[++no];
@@ -177,35 +190,32 @@ int PARSER::f_write_stat(int no){
 int PARSER::f_read_stat(int no){
     string ch = LA.m_str[no];
     if(ch == "read")    ch = LA.m_str[++no];
-    else{}
+    else    cout << "在行号：" << LA.m_str_lineNum[no] << "，存在语法错误代码 " << LA.m_str[no] <<endl;
     if(LA.m_str_attribute[no] == 1) ch = LA.m_str[++no];
-    else{}
+    else    cout << "在行号：" << LA.m_str_lineNum[no] << "，存在语法错误代码 " << LA.m_str[no] <<endl;
     if(ch == ";")   return ++no;
-    else{}
+    else    cout << "在行号：" << LA.m_str_lineNum[no] << "，存在语法错误代码 " << LA.m_str[no] <<endl;
 }
 //#11
 int PARSER::f_compound_stat(int no){
     string ch = LA.m_str[no];
     if(ch == "{")   ch = LA.m_str[++no];
-    else{}
+    else    cout << "在行号：" << LA.m_str_lineNum[no] << "，存在语法错误代码 " << LA.m_str[no] <<endl;
     no = f_statement_list(no);
     ch = LA.m_str[no];
     if(ch == "}")   return ++no;
-    else{}
+    else    cout << "在行号：" << LA.m_str_lineNum[no] << "，存在语法错误代码 " << LA.m_str[no] <<endl;
 }
 //#12
 int PARSER::f_expression_stat(int no){      //TODO
     string ch = LA.m_str[no];
-    if(is_include(no, first_expression)){   //TODO：处理_E
-
+    if(ch == ";")   return ++no;
+    else{
         no = f_expression(no);
         ch = LA.m_str[no];
-        if(ch == ";"){
-            //结束
-        }
+        if(ch == ";")   return ++no;
+        else cout << "在行号：" << LA.m_str_lineNum[no] << "，存在语法错误代码 " << LA.m_str[no] <<endl;
     }
-    else{}  //TODO:错误
-    if(ch == ";"){}   //结束
 }
 //#13
 int PARSER::f_expression(int no){       //TODO
@@ -243,7 +253,7 @@ int PARSER::f_additive_expr(int no){
 int PARSER::f_tmp_additive_expr(int no){
     string ch = LA.m_str[no];
     if(ch == "+" || ch == "-")  ch = LA.m_str[++no];
-    else{}
+    else    cout << "在行号：" << LA.m_str_lineNum[no] << "，存在语法错误代码 " << LA.m_str[no] <<endl;
     no = f_term(no);
     no = f_tmp_additive_expr(no);
     return no;
@@ -258,7 +268,7 @@ int PARSER::f_term(int no){
 int PARSER::f_tmp_term(int no){
     string ch = LA.m_str[no];
     if(ch == "*" || ch == "/")  ch = LA.m_str[++no];
-    else{}
+    else    cout << "在行号：" << LA.m_str_lineNum[no] << "，存在语法错误代码 " << LA.m_str[no] <<endl;
     no = f_factor(no);
     no = f_tmp_term(no);
     return no;
@@ -269,12 +279,21 @@ int PARSER::f_factor(int no){
     if(LA.m_str_attribute[no] == 1 || LA.m_str_attribute[no] == 3)
         return ++no;
     if(ch == "(")   ch = LA.m_str[++no];
-    else{}
+    else    cout << "在行号：" << LA.m_str_lineNum[no] << "，存在语法错误代码 " << LA.m_str[no] <<endl;
     no = f_expression(no);
     ch = LA.m_str[no];
     if(ch == ")")   return ++no;
 }
-
+//#21
+int PARSER::f_tmp_if_stat(int no){
+    string ch = LA.m_str[no];
+    if(ch == "else"){
+        ch = LA.m_str[++no];
+        no = f_statement(no);
+        return no;
+    }
+    else    return no;
+}
 bool PARSER::is_include(int no, vector<string>first){
     string ch = LA.m_str[no];
     for(string i:first){

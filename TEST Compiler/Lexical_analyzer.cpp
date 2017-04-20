@@ -200,12 +200,16 @@ bool TDFA::is_operator(char CheckStr){
 void TDFA::disp_result(){
     int StockLen = m_str.size();   //m_str的长度
     for(int i = 0; i < StockLen; i++){
-        if(m_str_attribute[i] == 0)
-            cout << "在行号：" << m_str_lineNum[i] << "，存在错误代码 " << m_str[i] <<endl;
-    }
-    for(int i = 0; i < StockLen; i++){
         cout << "单词：" << m_str[i] << "  属性：";
         cout << m_KeyWord[m_str_attribute[i]] << endl;
+    }
+}
+
+void TDFA::disp_wronginfo(){
+    int StockLen = m_str.size();   //m_str的长度
+    for(int i = 0; i < StockLen; i++){
+        if(m_str_attribute[i] == 0)
+            cout << "在行号：" << m_str_lineNum[i] << "，存在词法错误代码 " << m_str[i] <<endl;
     }
 }
 

@@ -15,6 +15,7 @@ using namespace std;
 class TDFA{
 public:
     void text_analysis();
+    void disp_wronginfo();
     void disp_result();
 
     bool is_alpha(char CheckStr);
