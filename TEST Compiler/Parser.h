@@ -53,5 +53,5 @@ private:
     bool is_include(int no, vector<string>first);
 public:
     PARSER();
-
+    void grammar_analysis();
 };
