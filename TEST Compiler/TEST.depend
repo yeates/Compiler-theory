@@ -12,3 +12,13 @@
 1492597308 source:g:\西南科技大学\四学期\学科相关\编译原理\test语言编译器\test\parser.cpp
 	"Lexical_analyzer.h"
 
+1492601259 source:g:\git\compiler-theory\test compiler\lexical_analyzer.cpp
+	"Lexical_analyzer.h"
+
+1492688016 g:\git\compiler-theory\test compiler\lexical_analyzer.h
+	<iostream>
+	<stdio.h>
+	<sstream>
+	<string>
+	<vector>
+
