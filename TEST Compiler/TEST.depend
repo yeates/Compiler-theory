@@ -12,7 +12,7 @@
 1492597308 source:g:\西南科技大学\四学期\学科相关\编译原理\test语言编译器\test\parser.cpp
 	"Lexical_analyzer.h"
 
-1492698756 source:g:\git\compiler-theory\test compiler\lexical_analyzer.cpp
+1492699389 source:g:\git\compiler-theory\test compiler\lexical_analyzer.cpp
 	"Lexical_analyzer.h"
 
 1492698696 g:\git\compiler-theory\test compiler\lexical_analyzer.h
@@ -22,10 +22,10 @@
 	<string>
 	<vector>
 
-1492699354 source:g:\git\compiler-theory\test compiler\parser.cpp
+1493126187 source:g:\git\compiler-theory\test compiler\parser.cpp
 	"Parser.h"
 
-1492695360 g:\git\compiler-theory\test compiler\parser.h
+1493123920 g:\git\compiler-theory\test compiler\parser.h
 	"Lexical_analyzer.h"
 
 1492695364 source:g:\git\compiler-theory\test compiler\test_compiler.cpp
