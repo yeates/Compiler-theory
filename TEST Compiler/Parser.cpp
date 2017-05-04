@@ -2,7 +2,7 @@
 
 //语法分析器类的构造函数
 PARSER::PARSER(){
-    /*FIRST集合*/
+    /*初始化FIRST集合*/
     first_program.push_back("(");
     first_declaration_list.push_back("int");
     first_declaration_list.push_back("_E");    //_E表示ε
@@ -67,7 +67,7 @@ PARSER::PARSER(){
     first_bool_expr.push_back("_NUM");
     first_bool_expr.push_back("(");
 
-    /*FOLLOW集合*/
+    /*初始化FOLLOW集合*/
     follow_declaration_list.push_back("if");
     follow_declaration_list.push_back("while");
     follow_declaration_list.push_back("for");
@@ -115,8 +115,6 @@ PARSER::PARSER(){
     follow_term.push_back("==");
     follow_term.push_back("!=");
 
-
-    swi_wrong_state = false;
 }
 //#1
 int PARSER::f_program(int no){
@@ -408,7 +406,6 @@ bool PARSER::is_include(int no, vector<string>first){
 }
 
 int PARSER::error_handle(int no){
-    //swi_wrong_state = true;
     if(no >= LA.m_str.size())   return LA.m_str.size()-1;
         cout << "在行号：" << LA.m_str_lineNum[no] << "，存在语法错误代码\"" << LA.m_str[no] << "\"" << endl;
     return ++no;
@@ -423,6 +420,7 @@ int PARSER::defect_handle(int no, string str){
 
 void PARSER::grammar_analysis(){
     LA.text_analysis();     //词法分析器处理单词
-    //LA.disp_result();
     f_program(0);
+    LA.disp_result(); //词法分析器报告
+    LA.disp_wronginfo();
 }

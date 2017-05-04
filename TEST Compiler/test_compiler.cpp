@@ -1,3 +1,4 @@
+/* --- ___main___主程序入口 --- */
 
 #include "Parser.h"
 
@@ -7,7 +8,6 @@ int main(){
 
     PARSER Parser;
     Parser.grammar_analysis();
-
 
     return 0;
 }

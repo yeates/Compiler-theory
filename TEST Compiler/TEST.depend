@@ -15,7 +15,7 @@
 1493126762 source:g:\git\compiler-theory\test compiler\lexical_analyzer.cpp
 	"Lexical_analyzer.h"
 
-1493126762 g:\git\compiler-theory\test compiler\lexical_analyzer.h
+1493907153 g:\git\compiler-theory\test compiler\lexical_analyzer.h
 	<iostream>
 	<stdio.h>
 	<sstream>
@@ -25,9 +25,9 @@
 1493905889 source:g:\git\compiler-theory\test compiler\parser.cpp
 	"Parser.h"
 
-1493905271 g:\git\compiler-theory\test compiler\parser.h
+1493907804 g:\git\compiler-theory\test compiler\parser.h
 	"Lexical_analyzer.h"
 
-1493126762 source:g:\git\compiler-theory\test compiler\test_compiler.cpp
+1493907758 source:g:\git\compiler-theory\test compiler\test_compiler.cpp
 	"Parser.h"
 

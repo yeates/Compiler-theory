@@ -1,3 +1,9 @@
+/***
+*类名：PARSER（TEST语法分析器）
+*
+*作者：yeates
+***/
+
 #include "Lexical_analyzer.h"
 
 class PARSER{
@@ -57,13 +63,10 @@ private:
     int f_tmp_term(int no);
     int f_factor(int no);
 //----------------------------------------//
-    bool is_include(int no, vector<string>first);
-    int error_handle(int no);
-    int defect_handle(int no, string str);
-    bool swi_wrong_state;   //判断现在是否是在错误状态
-    string wrong_string;    //出现错误时，失配的字符串。
+    bool is_include(int no, vector<string>first);   //相当于数学意义上的∈
+    int error_handle(int no);   //第一种错误处理方式：报异常错误，读取下一个单词
+    int defect_handle(int no, string str);  //第二种错误处理方式：报缺失错误，不读取下一个单词
 public:
-    PARSER();
-    void grammar_analysis();
-
+    PARSER();   //构造函数，用于初始化FIRST和FOLLOW集合
+    void grammar_analysis();    //主要分析函数
 };
