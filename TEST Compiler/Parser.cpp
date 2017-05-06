@@ -372,18 +372,18 @@ int PARSER::f_tmp_term(int no){
 //#20
 int PARSER::f_factor(int no){
     string ch = LA.m_str[no];
-    //这里不符合改造的文法，但这是为了错误处理，即这只会在输入代码错误的情况下才会发生，所以特殊情况特殊处理
-    //如果ch不属于FIRST集时 return
-    if(!is_include(no, first_factor))   return no;
+
     //当ch为ID或者NUM时，return
     if(LA.m_str_attribute[no] == 1 || LA.m_str_attribute[no] == 3)
         return ++no;
-    if(ch == "(")   ch = LA.m_str[++no];
-    else    no = defect_handle(no, "(");
-    no = f_expression(no);
-    ch = LA.m_str[no];
-    if(ch == ")")   return ++no;
-    else    return no = defect_handle(no, ")");
+    else if(ch == "("){
+        ch = LA.m_str[++no];
+        no = f_expression(no);
+        ch = LA.m_str[no];
+        if(ch == ")")   return ++no;
+        else    return no = defect_handle(no, ")");
+    }
+    else    return no = error_handle(no);  //这里不符合改造的文法，但这是为了错误处理，即这只会在输入代码错误的情况下才会发生，所以特殊情况特殊处理
 }
 
 //相当于数学意义上的属于
@@ -407,20 +407,22 @@ bool PARSER::is_include(int no, vector<string>first){
 
 int PARSER::error_handle(int no){
     if(no >= LA.m_str.size())   return LA.m_str.size()-1;
-        cout << "在行号：" << LA.m_str_lineNum[no] << "，存在语法错误代码\"" << LA.m_str[no] << "\"" << endl;
+        cout << "错误类型(0)，在行号：" << LA.m_str_lineNum[no] << "，存在语法错误代码\"" << LA.m_str[no] << "\"" << endl;
     return ++no;
 }
 
 int PARSER::defect_handle(int no, string str){
     if(no >= LA.m_str.size())   return LA.m_str.size()-1;
-        cout << "在行号：" << LA.m_str_lineNum[no] << "，上的单词：\"" << LA.m_str[no] << "\"的前面缺失了一个符号：\"" << str << "\"" << endl;
+        cout << "错误类型(1)，在行号：" << LA.m_str_lineNum[no] << "，上的单词：\"" << LA.m_str[no] << "\"的前面缺失了一个符号：\"" << str << "\"" << endl;
     return no;
 }
 
 
 void PARSER::grammar_analysis(){
     LA.text_analysis();     //词法分析器处理单词
+    cout << "------------语法分析-----------" << endl;
     f_program(0);
+    cout << "------------分析结束-----------" << endl << endl;
     LA.disp_result(); //词法分析器报告
     LA.disp_wronginfo();
 }
