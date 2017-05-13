@@ -127,13 +127,16 @@ int PARSER::f_program(int no){
     }
     no = f_declaration_list(no);
     no = f_statement_list(no);
-    if(no >= LA.m_str.size())   return no;
+    if(no >= LA.m_str.size()){
+        cout << "错误类型(1)，在行号：" << LA.m_str_lineNum[LA.m_str.size()-1] << "，符号：\"" << LA.m_str[LA.m_str.size()-1] << "\" 的后方，缺失符号: \"}\"" << endl;
+        return no;
+    }
     ch = LA.m_str[no];
     if(ch == "}"){
         return ++no;
     }
     else{
-        cout << "在行号：" << LA.m_str_lineNum[LA.m_str.size()-1] << "，符号：\"" << LA.m_str[LA.m_str.size()-1] << "\" 的后方，缺失符号: \"}\"" << endl;
+        cout << "错误类型(1)，在行号：" << LA.m_str_lineNum[LA.m_str.size()-1] << "，符号：\"" << LA.m_str[LA.m_str.size()-1] << "\" 的后方，缺失符号: \"}\"" << endl;
         return no;
     }
 }
@@ -383,7 +386,9 @@ int PARSER::f_factor(int no){
         if(ch == ")")   return ++no;
         else    return no = defect_handle(no, ")");
     }
-    else    return no = error_handle(no);  //这里不符合改造的文法，但这是为了错误处理，即这只会在输入代码错误的情况下才会发生，所以特殊情况特殊处理
+    else
+        //return no;  //这里不符合改造的文法，但这是为了该错误处理不影响后续错误的判断，特殊处理
+        return error_handle(no);    //这里符合改造文法，但会影响后续错误判断
 }
 
 //相当于数学意义上的属于
@@ -404,20 +409,20 @@ bool PARSER::is_include(int no, vector<string>first){
     }
     return false;
 }
-
+//第一类错误处理：匹配错误，自动读取下一字符
 int PARSER::error_handle(int no){
     if(no >= LA.m_str.size())   return LA.m_str.size()-1;
         cout << "错误类型(0)，在行号：" << LA.m_str_lineNum[no] << "，存在语法错误代码\"" << LA.m_str[no] << "\"" << endl;
     return ++no;
 }
-
+//第二类错误处理：缺失错误，不读取下一个字符
 int PARSER::defect_handle(int no, string str){
     if(no >= LA.m_str.size())   return LA.m_str.size()-1;
         cout << "错误类型(1)，在行号：" << LA.m_str_lineNum[no] << "，上的单词：\"" << LA.m_str[no] << "\"的前面缺失了一个符号：\"" << str << "\"" << endl;
     return no;
 }
 
-
+//语法分析主程序
 void PARSER::grammar_analysis(){
     LA.text_analysis();     //词法分析器处理单词
     cout << "------------语法分析-----------" << endl;
