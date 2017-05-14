@@ -15,19 +15,40 @@
 1493126762 source:g:\git\compiler-theory\test compiler\lexical_analyzer.cpp
 	"Lexical_analyzer.h"
 
-1493907153 g:\git\compiler-theory\test compiler\lexical_analyzer.h
+1494729725 g:\git\compiler-theory\test compiler\lexical_analyzer.h
+	"stdafx.h"
+
+1494645880 source:g:\git\compiler-theory\test compiler\parser.cpp
+	"Parser.h"
+
+1494729687 g:\git\compiler-theory\test compiler\parser.h
+	"Lexical_analyzer.h"
+
+1494729392 source:g:\git\compiler-theory\test compiler\test_compiler.cpp
+	"Parser.h"
+	"LLParser.h"
+
+1494729598 g:\git\compiler-theory\test compiler\stdafx.h
 	<iostream>
 	<stdio.h>
 	<sstream>
 	<string>
 	<vector>
+	<utility>
+	<map>
+	<stack>
 
-1494645880 source:g:\git\compiler-theory\test compiler\parser.cpp
-	"Parser.h"
+1494729369 source:g:\git\compiler-theory\test compiler\llparser.cpp
+	"LLParser.h"
 
-1493907804 g:\git\compiler-theory\test compiler\parser.h
+1494729656 g:\git\compiler-theory\test compiler\llparser.h
+	"stdafx.h"
 	"Lexical_analyzer.h"
+	"LLTable.h"
 
-1493975048 source:g:\git\compiler-theory\test compiler\test_compiler.cpp
-	"Parser.h"
+1494727802 source:g:\git\compiler-theory\test compiler\lltable.cpp
+	"LLTable.h"
+
+1494729630 g:\git\compiler-theory\test compiler\lltable.h
+	"stdafx.h"
 

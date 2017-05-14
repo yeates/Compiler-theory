@@ -1,6 +1,5 @@
 {
-int a
+int a;
+int 2b;
 int i;
-write i;
-
-
+}

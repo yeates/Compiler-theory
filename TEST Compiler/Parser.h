@@ -4,6 +4,9 @@
 *作者：yeates
 ***/
 
+#ifndef __PARSER_H__
+#define __PARSER_H__
+
 #include "Lexical_analyzer.h"
 
 class PARSER{
@@ -70,3 +73,5 @@ public:
     PARSER();   //构造函数，用于初始化FIRST和FOLLOW集合
     void grammar_analysis();    //主要分析函数
 };
+
+#endif // __PARSER_H__

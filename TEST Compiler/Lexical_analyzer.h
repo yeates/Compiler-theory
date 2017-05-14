@@ -3,14 +3,11 @@
 *
 *作者：yeates
 ***/
-#include <iostream>
-#include <stdio.h>
-#include <sstream>
-#include <string>
-#include <vector>
-#define Max(a, b) a > b? a : b
-#define Min(a, b) a < b? a : b
-using namespace std;
+
+#ifndef __LEXICAL_ANALYZER_H__
+#define __LEXICAL_ANALYZER_H__
+
+#include "stdafx.h"
 
 class TDFA{
 public:
@@ -40,3 +37,5 @@ private:
     bool m_is_in_annotator = false;     //当前单词是否在注释内
 
 };
+
+#endif

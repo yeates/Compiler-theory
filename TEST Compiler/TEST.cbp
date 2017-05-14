@@ -33,10 +33,15 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="LLParser.cpp" />
+		<Unit filename="LLParser.h" />
+		<Unit filename="LLTable.cpp" />
+		<Unit filename="LLTable.h" />
 		<Unit filename="Lexical_analyzer.cpp" />
 		<Unit filename="Lexical_analyzer.h" />
 		<Unit filename="Parser.cpp" />
 		<Unit filename="Parser.h" />
+		<Unit filename="stdafx.h" />
 		<Unit filename="test_compiler.cpp" />
 		<Extensions>
 			<code_completion />
