@@ -2,7 +2,7 @@
 
 
 LLPARSER::LLPARSER(){
-    init_terminator();  //åˆå§‹åŒ–ç»ˆç»“ç¬¦è¡¨
+    init_terminator();  //³õÊ¼»¯ÖÕ½á·û±í
 }
 
 void LLPARSER::init_terminator(){
@@ -14,9 +14,9 @@ void LLPARSER::init_terminator(){
 }
 
 void LLPARSER::grammar_analysis(){
-    LA.text_analysis(); //è¯æ³•åˆ†æ
+    LA.text_analysis(); //´Ê·¨·ÖÎö
 
-    stack<string>ss;    //ç¬¦å·æ ˆsymbol_stack
+    stack<string>ss;    //·ûºÅÕ»symbol_stack
     ss.push("#");
     ss.push("_A");
     int no = 0, len = LA.m_str.size();
@@ -35,21 +35,21 @@ void LLPARSER::grammar_analysis(){
                 ss.pop();
                 if(no < len)    ch = LA.m_str[no++];
             }
-            else    {cout << "åœ¨è¡Œå·ä¸ºï¼š" << LA.m_str_lineNum[no-1] <<  "ä¸Šï¼Œå­˜åœ¨é”™è¯¯ä»£ç \"" << ch << "\"" << endl; ch = LA.m_str[no++];}
+            else    {cout << "ÔÚĞĞºÅÎª£º" << LA.m_str_lineNum[no-1] <<  "ÉÏ£¬´æÔÚ´íÎó´úÂë\"" << ch << "\"" << endl; ch = LA.m_str[no++];}
         }
         else if(x == "#"){
-            cout << "æŠ¥å‘Šï¼šåˆ†ææˆåŠŸï¼" << endl;
+            cout << "±¨¸æ£º·ÖÎö³É¹¦£¡" << endl;
             flag = false;
         }
         else if(ll_1_table._Go[make_pair(x, ch)] != 0){
             ss.pop();
-            int rno = ll_1_table._Go[make_pair(x, ch)]; //äº§ç”Ÿå¼å³éƒ¨ä½äº_rightæ•°ç»„çš„ä¸‹æ ‡
+            int rno = ll_1_table._Go[make_pair(x, ch)]; //²úÉúÊ½ÓÒ²¿Î»ÓÚ_rightÊı×éµÄÏÂ±ê
             int rlen = ll_1_table._right[rno].size();
             for(int i = rlen-1; i >= 0; i--){
-                ss.push(ll_1_table._right[rno][i]);     //æŒ‰åpushäº§ç”Ÿå¼çš„å³éƒ¨
+                ss.push(ll_1_table._right[rno][i]);     //°´·´push²úÉúÊ½µÄÓÒ²¿
             }
         }
-        else    {cout << "åœ¨è¡Œå·ä¸ºï¼š" << LA.m_str_lineNum[no-1] <<  "ä¸Šï¼Œå­˜åœ¨é”™è¯¯ä»£ç \"" << ch << "\"" << endl; ch = LA.m_str[no++];}
+        else    {cout << "ÔÚĞĞºÅÎª£º" << LA.m_str_lineNum[no-1] <<  "ÉÏ£¬´æÔÚ´íÎó´úÂë\"" << ch << "\"" << endl; ch = LA.m_str[no++];}
 
     }
 }

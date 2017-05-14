@@ -8,12 +8,13 @@
 class LLPARSER{
 private:
     map<string, int>_Vt;
-    void init_terminator(); //åˆå§‹åŒ–ç»ˆç»“ç¬¦è¡¨
-    LLTABLE ll_1_table;     //LL(1)è¡¨
-    TDFA LA;                //è¯æ³•åˆ†æå™¨
+    void init_terminator(); //³õÊ¼»¯ÖÕ½á·û±í
+    LLTABLE ll_1_table;     //LL(1)±í
+    TDFA LA;                //´Ê·¨·ÖÎöÆ÷
 public:
     LLPARSER();
     void grammar_analysis();
 };
 
 #endif
+

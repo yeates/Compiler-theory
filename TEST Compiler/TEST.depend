@@ -38,8 +38,10 @@
 	<map>
 	<stack>
 
-1494750899 source:g:\git\compiler-theory\test compiler\llparser.cpp
-	"LLParser.h"
+1494751438 source:g:\git\compiler-theory\test compiler\llparser.cpp
+	"stdafx.h"
+	"Lexical_analyzer.h"
+	"LLTable.h"
 
 1494743214 g:\git\compiler-theory\test compiler\llparser.h
 	"stdafx.h"
