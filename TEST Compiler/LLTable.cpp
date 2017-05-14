@@ -10,6 +10,8 @@ LLTABLE::LLTABLE(){
     init_ll();      //初始化LL（1）构造表
 }
 
+
+//终结符前面加一个下划线，ID、NUM、e这类非终结符后方加一个下划线，一般非终结符不加任何下划线
 void LLTABLE::init_right(){
     vector<string>tp;
     int no = 1;
@@ -21,11 +23,11 @@ void LLTABLE::init_right(){
     _right[no++] = tp;
     tp.clear();
 
-    tp = {"_e"};
+    tp = {"e_"};
     _right[no++] = tp;
     tp.clear();
 
-    tp = {"int", "_ID", ";"};
+    tp = {"int", "ID_", ";"};
     _right[no++] = tp;
     tp.clear();
 
@@ -33,7 +35,7 @@ void LLTABLE::init_right(){
     _right[no++] = tp;
     tp.clear();
 
-    tp = {"_e"};
+    tp = {"e_"};
     _right[no++] = tp;
     tp.clear();
 
@@ -85,11 +87,11 @@ void LLTABLE::init_right(){
     _right[no++] = tp;
     tp.clear();
 
-    tp = {"read", "_ID", ";"};
+    tp = {"read", "ID_", ";"};
     _right[no++] = tp;
     tp.clear();
 
-    tp = {"{", "_ID", "}"};
+    tp = {"{", "ID_", "}"};
     _right[no++] = tp;
     tp.clear();
 
@@ -101,7 +103,7 @@ void LLTABLE::init_right(){
     _right[no++] = tp;
     tp.clear();
 
-    tp = {"_ID", "=", "_N"};
+    tp = {"ID_", "=", "_N"};
     _right[no++] = tp;
     tp.clear();
 
@@ -113,7 +115,7 @@ void LLTABLE::init_right(){
     _right[no++] = tp;
     tp.clear();
 
-    tp = {"_e"};
+    tp = {"e_"};
     _right[no++] = tp;
     tp.clear();
 
@@ -153,7 +155,7 @@ void LLTABLE::init_right(){
     _right[no++] = tp;
     tp.clear();
 
-    tp = {"_e"};
+    tp = {"e_"};
     _right[no++] = tp;
     tp.clear();
 
@@ -169,7 +171,7 @@ void LLTABLE::init_right(){
     _right[no++] = tp;
     tp.clear();
 
-    tp = {"_e"};
+    tp = {"e_"};
     _right[no++] = tp;
     tp.clear();
 
@@ -177,11 +179,11 @@ void LLTABLE::init_right(){
     _right[no++] = tp;
     tp.clear();
 
-    tp = {"_ID"};
+    tp = {"ID_"};
     _right[no++] = tp;
     tp.clear();
 
-    tp = {"_NUM"};
+    tp = {"NUM_"};
     _right[no++] = tp;
     tp.clear();
 
@@ -190,11 +192,44 @@ void LLTABLE::init_right(){
 void LLTABLE::init_ll(){
     GO tp;
 
-    tp = mp("_A", "_{");
+    tp = mp("_A", "{");
     _Go[tp] = 1;            //代表所对应产生式，在_right数组的下标
 
     tp = mp("_B", "int");
     _Go[tp] = 2;
+
+    tp = mp("_B", "NUM_");
+    _Go[tp] = 3;
+
+    tp = mp("_B", "ID_");
+    _Go[tp] = 3;
+
+    tp = mp("_B", "{");
+    _Go[tp] = 3;
+
+    tp = mp("_B", "}");
+    _Go[tp] = 3;
+
+    tp = mp("_B", "(");
+    _Go[tp] = 3;
+
+    tp = mp("_B", "if");
+    _Go[tp] = 3;
+
+    tp = mp("_B", "while");
+    _Go[tp] = 3;
+
+    tp = mp("_B", "for");
+    _Go[tp] = 3;
+
+    tp = mp("_B", "write");
+    _Go[tp] = 3;
+
+    tp = mp("_B", "read");
+    _Go[tp] = 3;
+
+    tp = mp("_B", ";");
+    _Go[tp] = 3;
 
     tp = mp("_C", "int");
     _Go[tp] = 4;
@@ -213,6 +248,9 @@ void LLTABLE::init_ll(){
 
     tp = mp("_D", "read");
     _Go[tp] = 5;
+
+    tp = mp("_D", "}");
+    _Go[tp] = 6;
 
     tp = mp("_E", "ID");
     _Go[tp] = 13;
@@ -261,10 +299,10 @@ void LLTABLE::init_ll(){
     tp = mp("_K", "{");
     _Go[tp] = 20;
 
-    tp = mp("_L", "_ID");
+    tp = mp("_L", "ID_");
     _Go[tp] = 21;
 
-    tp = mp("_L", "_NUM");
+    tp = mp("_L", "NUM_");
     _Go[tp] = 21;
 
     tp = mp("_L", "(");
@@ -275,10 +313,10 @@ void LLTABLE::init_ll(){
 
     //expression的特殊处理
 
-    tp = mp("_N", "_ID");
+    tp = mp("_N", "ID_");
     _Go[tp] = 25;
 
-    tp = mp("_N", "_NUM");
+    tp = mp("_N", "NUM_");
     _Go[tp] = 25;
 
     tp = mp("_N", "(");
@@ -302,10 +340,16 @@ void LLTABLE::init_ll(){
     tp = mp("_O", "!=");
     _Go[tp] = 32;
 
-    tp = mp("_P", "_ID");
+    tp = mp("_O", ")");
+    _Go[tp] = 26;
+
+    tp = mp("_O", ";");
+    _Go[tp] = 26;
+
+    tp = mp("_P", "ID_");
     _Go[tp] = 33;
 
-    tp = mp("_P", "_NUM");
+    tp = mp("_P", "NUM_");
     _Go[tp] = 33;
 
     tp = mp("_P", "(");
@@ -317,10 +361,34 @@ void LLTABLE::init_ll(){
     tp = mp("_Q", "-");
     _Go[tp] = 35;
 
-    tp = mp("_R", "_ID");
+    tp = mp("_Q", ")");
+    _Go[tp] = 36;
+
+    tp = mp("_Q", ";");
+    _Go[tp] = 36;
+
+    tp = mp("_Q", ">");
+    _Go[tp] = 36;
+
+    tp = mp("_Q", "<");
+    _Go[tp] = 36;
+
+    tp = mp("_Q", ">=");
+    _Go[tp] = 36;
+
+    tp = mp("_Q", "<=");
+    _Go[tp] = 36;
+
+    tp = mp("_Q", "==");
+    _Go[tp] = 36;
+
+    tp = mp("_Q", "!=");
+    _Go[tp] = 36;
+
+    tp = mp("_R", "ID_");
     _Go[tp] = 37;
 
-    tp = mp("_R", "_NUM");
+    tp = mp("_R", "NUM_");
     _Go[tp] = 37;
 
     tp = mp("_R", "(");
@@ -332,10 +400,40 @@ void LLTABLE::init_ll(){
     tp = mp("_S", "/");
     _Go[tp] = 39;
 
-    tp = mp("_T", "_ID");
+    tp = mp("_S", ";");
+    _Go[tp] = 40;
+
+    tp = mp("_S", ")");
+    _Go[tp] = 40;
+
+    tp = mp("_S", "+");
+    _Go[tp] = 40;
+
+    tp = mp("_S", "-");
+    _Go[tp] = 40;
+
+    tp = mp("_S", ">");
+    _Go[tp] = 40;
+
+    tp = mp("_S", "<");
+    _Go[tp] = 40;
+
+    tp = mp("_S", ">=");
+    _Go[tp] = 40;
+
+    tp = mp("_S", "<=");
+    _Go[tp] = 40;
+
+    tp = mp("_S", "==");
+    _Go[tp] = 40;
+
+    tp = mp("_S", "!=");
+    _Go[tp] = 40;
+
+    tp = mp("_T", "ID_");
     _Go[tp] = 42;
 
-    tp = mp("_T", "_NUM");
+    tp = mp("_T", "NUM_");
     _Go[tp] = 43;
 
     tp = mp("_T", "(");

@@ -14,6 +14,8 @@ void LLPARSER::init_terminator(){
 }
 
 void LLPARSER::grammar_analysis(){
+    LA.text_analysis(); //词法分析
+
     stack<string>ss;    //符号栈symbol_stack
     ss.push("#");
     ss.push("_A");
@@ -23,26 +25,32 @@ void LLPARSER::grammar_analysis(){
 
     while(flag){
         string x = ss.top();
-        ss.pop();
-        if(_Vt[x] == 1){
-            if(ch == x){
+
+        if(x == "e_"){
+            ss.pop();
+            continue;
+        }
+        if(_Vt[x] == 1 || (x != "#" && x.at(0) != '_') ){
+            if(ch == x || (x == "ID_" && LA.m_str_attribute[no-1] == 1) || (x == "NUM_" && LA.m_str_attribute[no-1] == 3)){
+                ss.pop();
                 if(no < len)    ch = LA.m_str[no++];
-                else    {cout << "分析已达错误边界，停止分析!" << endl; break;}
             }
-            else    cout << "在行号为：" << LA.m_str_lineNum[no] <<  "上，存在错误代码\"" << ch << "\"" << endl;
+            else    {cout << "在行号为：" << LA.m_str_lineNum[no-1] <<  "上，存在错误代码\"" << ch << "\"" << endl; ch = LA.m_str[no++];}
         }
         else if(x == "#"){
-            if(ch == x) {cout << "报告：分析成功！" << endl; flag = false;}
-            else    cout << "在行号为：" << LA.m_str_lineNum[no] <<  "上，存在错误代码\"" << ch << "\"" << endl;
+            cout << "报告：分析成功！" << endl;
+            flag = false;
         }
         else if(ll_1_table._Go[make_pair(x, ch)] != 0){
+            ss.pop();
             int rno = ll_1_table._Go[make_pair(x, ch)]; //产生式右部位于_right数组的下标
-            int len = ll_1_table._right[rno].size();
-            for(int i = len-1; i >= 0; i--){
+            int rlen = ll_1_table._right[rno].size();
+            for(int i = rlen-1; i >= 0; i--){
                 ss.push(ll_1_table._right[rno][i]);     //按反push产生式的右部
             }
         }
-        else    cout << "在行号为：" << LA.m_str_lineNum[no] <<  "上，存在错误代码\"" << ch << "\"" << endl;
+        else    {cout << "在行号为：" << LA.m_str_lineNum[no-1] <<  "上，存在错误代码\"" << ch << "\"" << endl; ch = LA.m_str[no++];}
+
     }
 }
 
