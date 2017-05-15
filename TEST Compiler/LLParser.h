@@ -11,6 +11,7 @@ private:
     void init_terminator(); //初始化终结符表
     LLTABLE ll_1_table;     //LL(1)表
     TDFA LA;                //词法分析器
+    const string if_deal_symbol = "<if_symbol>";    //if的处理标志
 public:
     LLPARSER();
     void grammar_analysis();

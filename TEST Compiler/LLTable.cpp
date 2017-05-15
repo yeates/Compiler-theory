@@ -10,7 +10,7 @@ LLTABLE::LLTABLE(){
     init_ll();      //初始化LL（1）构造表
 }
 
-
+//产生式右部表的初始化
 //终结符前面加一个下划线，ID、NUM、e这类非终结符后方加一个下划线，一般非终结符不加任何下划线
 void LLTABLE::init_right(){
     vector<string>tp;
@@ -79,7 +79,7 @@ void LLTABLE::init_right(){
     _right[no++] = tp;
     tp.clear();
 
-    tp = {"for", "(", "_M", ")", "_E"};
+    tp = {"for", "(", "_M", ";", "_M", ";", "_M", ")", "_E"};
     _right[no++] = tp;
     tp.clear();
 
@@ -91,7 +91,7 @@ void LLTABLE::init_right(){
     _right[no++] = tp;
     tp.clear();
 
-    tp = {"{", "ID_", "}"};
+    tp = {"{", "_D", "}"};
     _right[no++] = tp;
     tp.clear();
 
@@ -189,6 +189,7 @@ void LLTABLE::init_right(){
 
 }
 
+//LL（1）表构造
 void LLTABLE::init_ll(){
     GO tp;
 
@@ -249,13 +250,28 @@ void LLTABLE::init_ll(){
     tp = mp("_D", "read");
     _Go[tp] = 5;
 
+    tp = mp("_D", "NUM_");
+    _Go[tp] = 5;
+
+    tp = mp("_D", "ID_");
+    _Go[tp] = 5;
+
+    tp = mp("_D", "(");
+    _Go[tp] = 5;
+
+    tp = mp("_D", "{");
+    _Go[tp] = 5;
+
+    tp = mp("_D", ";");
+    _Go[tp] = 5;
+
     tp = mp("_D", "}");
     _Go[tp] = 6;
 
-    tp = mp("_E", "ID");
+    tp = mp("_E", "ID_");
     _Go[tp] = 13;
 
-    tp = mp("_E", "NUM");
+    tp = mp("_E", "NUM_");
     _Go[tp] = 13;
 
     tp = mp("_E", "(");
@@ -283,6 +299,8 @@ void LLTABLE::init_ll(){
     _Go[tp] = 11;
 
     //if-stat 特殊处理
+    tp = mp("_F", "if");
+    _Go[tp] = 14;
 
     tp = mp("_G", "while");
     _Go[tp] = 16;
@@ -312,6 +330,8 @@ void LLTABLE::init_ll(){
     _Go[tp] = 22;
 
     //expression的特殊处理
+    tp = mp("_M", "ID_");
+    _Go[tp] = 24;
 
     tp = mp("_N", "ID_");
     _Go[tp] = 25;
