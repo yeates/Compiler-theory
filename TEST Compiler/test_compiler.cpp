@@ -1,14 +1,22 @@
-/* --- ___main___ä¸»ç¨‹åºå…¥å£ --- */
+/* --- ___main___Ö÷³ÌĞòÈë¿Ú --- */
 
 #include "Parser.h"
 #include "LLParser.h"
 
 int main(){
-    freopen("./data/input.txt", "r", stdin);
+
     //freopen("./data/output.txt", "w", stdout);
-
-    LLPARSER Parser;
-    Parser.grammar_analysis();
-
+    bool flag = true;
+    cout << "--->ÇëÊäÈëÊ¹ÓÃµÄÓï·¨·ÖÎöÆ÷£º£¨µİ¹éÏÂ½µÊäÈë'D', LL£¨1£©±íÇı¶¯ÊäÈë'E'£©" << endl;
+    cout << "\t";
+    while(flag){
+        string tp;
+        cin >> tp;
+        if(tp == "D")   {PARSER Parser; freopen("./data/input.txt", "r", stdin); Parser.grammar_analysis(); flag = false;}
+        else if(tp == "E")  {LLPARSER Parser; freopen("./data/input.txt", "r", stdin); Parser.grammar_analysis(); flag = false;}
+        else{
+            cout << "--->ÊäÈë´íÎó£¬ÇëÖØĞÂÊäÈë" << endl << "\t";
+        }
+    }
     return 0;
 }
